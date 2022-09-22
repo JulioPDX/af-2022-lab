@@ -1,0 +1,19 @@
+{
+  "name": "af-2022-lab",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.36.5",
+    "@slidev/theme-default": "*",
+    "@slidev/theme-seriph": "*",
+    "prism-theme-vars": "^0.2.4",
+    "slidev-theme-purplin": "^1.1.0"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.1.33"
+  }
+}
