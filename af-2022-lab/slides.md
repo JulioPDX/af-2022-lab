@@ -26,7 +26,7 @@ favicon: '/favicon.ico'
 
 # Automating Arista Network Fabric
 
-<BarBottom  title="AnsibleFest 2022">
+<BarBottom  title="AnsibleFest 2022" >
   <Item text="aristanetworks/ansible-avd">
     <carbon:logo-github />
   </Item>
@@ -106,6 +106,204 @@ router bgp 65001
 ```
 
 </div>
+
+<BarBottom  title="AnsibleFest 2022">
+  <Item text="aristanetworks/ansible-avd">
+    <carbon:logo-github />
+  </Item>
+  <Item text="@AristaNetworks">
+    <carbon:logo-twitter />
+  </Item>
+  <Item text="arista.com">
+    <carbon:globe />
+  </Item>
+</BarBottom>
+
+---
+
+# Automated documentation
+
+### Point-To-Point Links Node Allocation
+
+| Node | Node Interface | Node IP Address | Peer Node | Peer Interface | Peer IP Address |
+| ---- | -------------- | --------------- | --------- | -------------- | --------------- |
+| dc1-leaf1a | Ethernet1 | 10.255.255.1/31 | dc1-spine1 | Ethernet1 | 10.255.255.0/31 |
+| dc1-leaf1a | Ethernet2 | 10.255.255.3/31 | dc1-spine2 | Ethernet1 | 10.255.255.2/31 |
+| dc1-leaf1b | Ethernet1 | 10.255.255.5/31 | dc1-spine1 | Ethernet2 | 10.255.255.4/31 |
+| dc1-leaf1b | Ethernet2 | 10.255.255.7/31 | dc1-spine2 | Ethernet2 | 10.255.255.6/31 |
+
+<BarBottom  title="AnsibleFest 2022">
+  <Item text="aristanetworks/ansible-avd">
+    <carbon:logo-github />
+  </Item>
+  <Item text="@AristaNetworks">
+    <carbon:logo-twitter />
+  </Item>
+  <Item text="arista.com">
+    <carbon:globe />
+  </Item>
+</BarBottom>
+
+---
+layout: center
+---
+
+# Group variables
+
+<BarBottom  title="AnsibleFest 2022">
+  <Item text="aristanetworks/ansible-avd">
+    <carbon:logo-github />
+  </Item>
+  <Item text="@AristaNetworks">
+    <carbon:logo-twitter />
+  </Item>
+  <Item text="arista.com">
+    <carbon:globe />
+  </Item>
+</BarBottom>
+
+---
+layout: two-cols
+---
+# Fabric wide definitions
+
+<br>
+
+```yaml
+# FABRIC.yml
+underlay_routing_protocol: EBGP
+overlay_routing_protocol: EBGP
+
+local_users:
+  ansible:
+    privilege: 15
+    role: network-admin
+  admin:
+    privilege: 15
+    role: network-admin
+```
+
+::right::
+
+# | Topology
+
+<br>
+
+```mermaid {scale: 1.2}
+%%{ init: { 'flowchart': { 'curve': 'basis' } } }%%
+graph TB
+    S1(S1);S2(S2);L1(L1);L2(L2);L3(L3);L4(L4)
+    subgraph FABRIC
+      S1 --- L1 & L2 & L3 & L4
+      S2 --- L1 & L2 & L3 & L4
+    end
+    linkStyle 0 stroke:#006400,stroke-width:4px,color:red;
+    linkStyle 1 stroke:#006400,stroke-width:4px,color:red;
+    linkStyle 2 stroke:#006400,stroke-width:4px,color:red;
+    linkStyle 3 stroke:#006400,stroke-width:4px,color:red;
+    classDef arista_blue fill:#27569B,stroke:#333,stroke-width:2px;
+    class S1,S2,L1,L2,L3,L4 arista_blue
+```
+
+<BarBottom  title="AnsibleFest 2022">
+  <Item text="aristanetworks/ansible-avd">
+    <carbon:logo-github />
+  </Item>
+  <Item text="@AristaNetworks">
+    <carbon:logo-twitter />
+  </Item>
+  <Item text="arista.com">
+    <carbon:globe />
+  </Item>
+</BarBottom>
+
+---
+layout: two-cols
+---
+# Network services
+
+- Tenants
+- L3 & L2 services
+
+::right::
+
+<br>
+<br>
+
+```yaml
+---
+# NETWORK_SERVICES.yml
+tenants:
+  TENANT1:
+    mac_vrf_vni_base: 10000
+    vrfs:
+      VRF10:
+        vrf_vni: 10
+        svis:
+          "11":
+            name: VRF10_VLAN11
+            enabled: true
+            ip_address_virtual: 10.10.11.1/24
+    l2vlans:
+      "3401":
+        name: L2_VLAN3401
+      "3402":
+        name: L2_VLAN3402
+```
+
+<BarBottom  title="AnsibleFest 2022">
+  <Item text="aristanetworks/ansible-avd">
+    <carbon:logo-github />
+  </Item>
+  <Item text="@AristaNetworks">
+    <carbon:logo-twitter />
+  </Item>
+  <Item text="arista.com">
+    <carbon:globe />
+  </Item>
+</BarBottom>
+
+---
+layout: two-cols
+---
+# Connected endpoints
+
+<br>
+
+```yaml {all|7-9}
+---
+# CONNECTED_ENDPOINTS.yml
+servers:
+  dc1-leaf1-server1:
+    adapters:
+    - type: server
+      server_ports: [ PCI1, PCI2 ]
+      switch_ports: [ Ethernet5, Ethernet10 ]
+      switches: [ dc1-leaf1a, dc1-leaf1b ]
+      vlans: 11-12,21-22
+      native_vlan: 4092
+      mode: trunk
+      spanning_tree_portfast: edge
+      port_channel:
+        description: PortChannel dc1-leaf1-server1
+        mode: active
+```
+
+::right::
+
+# | Topology
+
+<br>
+
+```mermaid {scale: 1.8}
+%%{ init: { 'flowchart': { 'curve': 'basis' } } }%%
+graph TB
+    L1(dc1-leaf1a);L2(dc1-leaf1b);SER1(dc1-leaf1-server1)
+    L1 --- |Ethernet5<br>PCI1| SER1
+    L2 --- |Ethernet10<br>PCI2| SER1
+    classDef arista_blue fill:#27569B,stroke:#333,stroke-width:2px;
+    class L1,L2 arista_blue
+```
 
 <BarBottom  title="AnsibleFest 2022">
   <Item text="aristanetworks/ansible-avd">
