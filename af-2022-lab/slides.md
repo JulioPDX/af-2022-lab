@@ -226,8 +226,8 @@ local_users:
 
 ::right::
 
-# Topology
-
+<br>
+<br>
 <br>
 
 ```mermaid {scale: 1.2}
@@ -332,8 +332,8 @@ servers:
 
 ::right::
 
-# Topology
-
+<br>
+<br>
 <br>
 
 ```mermaid {scale: 1.8}
@@ -344,48 +344,6 @@ graph TB
     L2 --- |Ethernet10<br>PCI2| SER1
     classDef arista_blue fill:#27569B,stroke:#333,stroke-width:2px;
     class L1,L2 arista_blue
-```
-
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
-
----
-layout: two-cols
----
-
-# With CloudVision
-
-<br>
-<br>
-<br>
-
-```yaml
-- name: deploy configuration to device
-  import_role:
-    name: arista.avd.eos_config_deploy_eapi
-```
-
-::right::
-
-# Without CloudVision
-
-<br>
-<br>
-<br>
-
-```yaml
-- name: deploy configuration with CVP
-  import_role:
-    name: arista.avd.eos_config_deploy_cvp
 ```
 
 <BarBottom  title="AnsibleFest 2022">
