@@ -67,8 +67,74 @@ An extensible data model that defines Arista’s Unified Cloud Network (UCN) arc
 </BarBottom>
 
 ---
+layout: center
+---
 
-# How
+# Ansible AVD Collection
+
+```mermaid {scale: .58}
+flowchart LR
+    1(YAML);2(eos_designs_role);3(eos_cli_config_gen_role);4(eos_config_deploy_cvp_role);5(eos_validate_state_role);6(CSV/MD);7(YAML);8(EOS.CFG);9(YAML);10(CSV/MD);11(CloudVision)
+    subgraph vars
+      1
+    end
+    subgraph eos_designs
+    2
+    end
+    subgraph eos_cli_config_gen
+    3
+    end
+    subgraph eos_config_deploy_cvp
+    4
+    end
+    subgraph eos_validate_state
+    5
+    end
+    subgraph Documentation
+      6
+    end
+    subgraph Structured-EOS-Config
+      7
+    end
+    subgraph EOS-CLI-Config
+      8
+    end
+    subgraph Ansible-Inventory
+      9
+    end
+    subgraph Reports
+      10
+    end
+    subgraph CloudVision
+      11
+    end
+    subgraph Arista-EOS-Fabric
+      S1(S1);S2(S2);L1(L1);L2(L2);L3(L3);L4(L4)
+      S1 & S2 --- L1 & L2 & L3 & L4
+    end
+    vars --> eos_designs
+    eos_designs --> Documentation
+    eos_cli_config_gen --> Documentation
+    eos_designs <--> Structured-EOS-Config
+    Structured-EOS-Config --> eos_cli_config_gen
+    Structured-EOS-Config --> eos_validate_state
+    eos_cli_config_gen --> EOS-CLI-Config
+    EOS-CLI-Config --> eos_config_deploy_cvp
+    Ansible-Inventory --> eos_config_deploy_cvp
+    eos_validate_state <--> Reports
+    eos_validate_state <--> Arista-EOS-Fabric
+    CloudVision <--> eos_config_deploy_cvp
+    CloudVision <--> Arista-EOS-Fabric
+
+
+
+    classDef arista_blue fill:#27569B,stroke:#333,stroke-width:2px;
+    class 1,2,3,4,5,6,7,8,9,10,11 arista_blue
+```
+
+---
+
+# The oversimplification
 
 <br>
 <br>
@@ -106,31 +172,6 @@ router bgp 65001
 ```
 
 </div>
-
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
-
----
-
-# Automated documentation
-
-### Point-To-Point Links Node Allocation
-
-| Node | Node Interface | Node IP Address | Peer Node | Peer Interface | Peer IP Address |
-| ---- | -------------- | --------------- | --------- | -------------- | --------------- |
-| dc1-leaf1a | Ethernet1 | 10.255.255.1/31 | dc1-spine1 | Ethernet1 | 10.255.255.0/31 |
-| dc1-leaf1a | Ethernet2 | 10.255.255.3/31 | dc1-spine2 | Ethernet1 | 10.255.255.2/31 |
-| dc1-leaf1b | Ethernet1 | 10.255.255.5/31 | dc1-spine1 | Ethernet2 | 10.255.255.4/31 |
-| dc1-leaf1b | Ethernet2 | 10.255.255.7/31 | dc1-spine2 | Ethernet2 | 10.255.255.6/31 |
 
 <BarBottom  title="AnsibleFest 2022">
   <Item text="aristanetworks/ansible-avd">
@@ -185,7 +226,7 @@ local_users:
 
 ::right::
 
-# | Topology
+# Topology
 
 <br>
 
@@ -223,7 +264,7 @@ layout: two-cols
 # Network services
 
 - Tenants
-- L3 & L2 services
+- L2 & L3 services
 
 ::right::
 
@@ -291,7 +332,7 @@ servers:
 
 ::right::
 
-# | Topology
+# Topology
 
 <br>
 
@@ -318,111 +359,64 @@ graph TB
 </BarBottom>
 
 ---
-
-# Ansible AVD Collection
-
-### Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
+layout: two-cols
 ---
 
-# Code
+# With CloudVision
 
-<div grid="~ cols-2 gap-2">
-
-```ts {all|2|1-6|9|all}
-interface User {
-  id: number
-  firstName: string
-  lastName: string
-  role: string
-}
-
-function updateUser(id: number, update: User) {
-  const user = getUser(id)
-  const newUser = { ...user, ...update }
-  saveUser(id, newUser)
-}
-```
+<br>
+<br>
+<br>
 
 ```yaml
----
-all:
-  children:
-    cv_servers:
-      hosts:
-        cv_atd1:
-          ansible_host: 192.168.0.5
-          ansible_user: arista
-          ansible_password: # update password with "Lab Credentials"
-          cv_collection: v3
+- name: deploy configuration to device
+  import_role:
+    name: arista.avd.eos_config_deploy_eapi
 ```
 
-</div>
+::right::
 
----
-class: px-20
----
+# Without CloudVision
 
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="-t-2">
+<br>
+<br>
+<br>
 
 ```yaml
----
-theme: default
----
+- name: deploy configuration with CVP
+  import_role:
+    name: arista.avd.eos_config_deploy_cvp
 ```
 
-```yaml
+<BarBottom  title="AnsibleFest 2022">
+  <Item text="aristanetworks/ansible-avd">
+    <carbon:logo-github />
+  </Item>
+  <Item text="@AristaNetworks">
+    <carbon:logo-twitter />
+  </Item>
+  <Item text="arista.com">
+    <carbon:globe />
+  </Item>
+</BarBottom>
+
 ---
-theme: seriph
----
-```
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
-
+layout: center
 ---
 
-# Diagrams
+# Lab
 
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-2 gap-10 pt-4 -mb-6">
-
-```mermaid {scale: 0.5}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-</div>
+<BarBottom  title="AnsibleFest 2022">
+  <Item text="aristanetworks/ansible-avd">
+    <carbon:logo-github />
+  </Item>
+  <Item text="@AristaNetworks">
+    <carbon:logo-twitter />
+  </Item>
+  <Item text="arista.com">
+    <carbon:globe />
+  </Item>
+</BarBottom>
 
 ---
 layout: center
@@ -431,4 +425,16 @@ class: text-center
 
 # Thank you
 
-[Documentation](https://avd.sh/en/stable/) · [GitHub](https://github.com/aristanetworks/ansible-avd) · [Showcases](https://sli.dev/showcases.html)
+[Documentation](https://avd.sh/en/stable/) · [GitHub](https://github.com/aristanetworks/ansible-avd) · [Community examples](https://github.com/arista-netdevops-community)
+
+<BarBottom  title="AnsibleFest 2022">
+  <Item text="aristanetworks/ansible-avd">
+    <carbon:logo-github />
+  </Item>
+  <Item text="@AristaNetworks">
+    <carbon:logo-twitter />
+  </Item>
+  <Item text="arista.com">
+    <carbon:globe />
+  </Item>
+</BarBottom>
