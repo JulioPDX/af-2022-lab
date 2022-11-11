@@ -1,6 +1,6 @@
 ---
 # try also 'default' to start simple
-theme: purplin
+theme: default
 # background: https://unsplash.com/photos/fX-qWsXl5x8
 # apply any windi css classes to the current slide
 class: 'text-center'
@@ -24,19 +24,13 @@ colorSchema: 'dark'
 favicon: '/favicon.ico'
 ---
 
-# Automating Arista Network Fabric
+# Welcome
 
-<BarBottom  title="AnsibleFest 2022" >
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
+---
+layout: center
+---
+
+# Automating Arista Network Fabric
 
 ---
 
@@ -48,29 +42,26 @@ An extensible data model that defines Arista’s Unified Cloud Network (UCN) arc
 
 <br>
 
-- Automatic generation of documentation and validation tests <mdi-notes />
+- Automatic generation of documentation and validation tests 😊
 - Foundation for Infrastructure-as-Code <mdi-terminal />
 - Faster time to production <mdi-timer />
 - Reduced risk of configuration error <mdi-mood />
 - Consistent global configuration changes across the network <mdi-check-box />
 
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
+---
+layout: iframe-right
+url: https://avd.sh/en/devel/index.html
+---
+
+# AVD Ansible Collection
+
+- [avd.sh](https://avd.sh/en/stable/)
 
 ---
 layout: center
 ---
 
-# Ansible AVD Collection
+# Role breakdown
 
 ```mermaid {scale: .58}
 flowchart LR
@@ -173,35 +164,11 @@ router bgp 65001
 
 </div>
 
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
-
 ---
 layout: center
 ---
 
 # Group variables
-
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
 
 ---
 layout: two-cols
@@ -246,18 +213,6 @@ graph TB
     class S1,S2,L1,L2,L3,L4 arista_blue
 ```
 
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
-
 ---
 layout: two-cols
 ---
@@ -291,18 +246,6 @@ tenants:
       "3402":
         name: L2_VLAN3402
 ```
-
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
 
 ---
 layout: two-cols
@@ -346,35 +289,11 @@ graph TB
     class L1,L2 arista_blue
 ```
 
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
-
 ---
 layout: center
 ---
 
 # Lab
-
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
 
 ---
 layout: center
@@ -384,15 +303,3 @@ class: text-center
 # Thank you
 
 [Documentation](https://avd.sh/en/stable/) · [GitHub](https://github.com/aristanetworks/ansible-avd) · [Community examples](https://github.com/arista-netdevops-community)
-
-<BarBottom  title="AnsibleFest 2022">
-  <Item text="aristanetworks/ansible-avd">
-    <carbon:logo-github />
-  </Item>
-  <Item text="@AristaNetworks">
-    <carbon:logo-twitter />
-  </Item>
-  <Item text="arista.com">
-    <carbon:globe />
-  </Item>
-</BarBottom>
