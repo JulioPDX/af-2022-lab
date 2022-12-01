@@ -1,7 +1,6 @@
 ---
 # try also 'default' to start simple
 theme: default
-author: Julio Perez
 # background: https://unsplash.com/photos/fX-qWsXl5x8
 # apply any windi css classes to the current slide
 class: 'text-center'
@@ -25,9 +24,7 @@ colorSchema: 'dark'
 favicon: '/favicon.ico'
 ---
 
-# Welcome
-
-{{ $slidev.configs.author }}
+# TEST
 
 ---
 layout: center
@@ -180,29 +177,9 @@ layout: two-cols
 
 <br>
 
-```yaml {height:'100px'}
+```yaml
 # FABRIC.yml
 underlay_routing_protocol: EBGP
-overlay_routing_protocol: EBGP
-
-local_users:
-  ansible:
-    privilege: 15
-    role: network-admin
-  admin:
-    privilege: 15
-    role: network-admin
-    underlay_routing_protocol: EBGP
-overlay_routing_protocol: EBGP
-
-local_users:
-  ansible:
-    privilege: 15
-    role: network-admin
-  admin:
-    privilege: 15
-    role: network-admin
-    underlay_routing_protocol: EBGP
 overlay_routing_protocol: EBGP
 
 local_users:

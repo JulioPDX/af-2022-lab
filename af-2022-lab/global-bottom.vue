@@ -6,6 +6,7 @@
       >
         <span class="text-sm"><logos-twitter class="mr-1" />@Julio_PDX</span>
         <span class="text-sm"><mdi-public class="mr-1" />juliopdx.com</span>
+        <span class="text-sm"><mdi-pencil class="mr-1" />{{ $slidev.configs.author }}</span>
       </div>
     </div>
     <!-- <div class="border-bar"></div> -->

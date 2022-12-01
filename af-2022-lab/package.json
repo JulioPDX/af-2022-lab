@@ -4,13 +4,15 @@
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",
-    "export": "slidev export"
+    "export": "slidev export",
+    "test": "slidev test.md --open"
   },
   "dependencies": {
     "@slidev/cli": "^0.36.5",
     "@slidev/theme-default": "*",
     "@slidev/theme-seriph": "*",
     "prism-theme-vars": "^0.2.4",
+    "slidev-theme-penguin": "^1.6.1",
     "slidev-theme-purplin": "^1.1.0"
   },
   "devDependencies": {
